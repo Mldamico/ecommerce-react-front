@@ -21,7 +21,7 @@ export const cartReducers = (state = { cartItems: [] }, action) => {
           cartItems: [...state.cartItems, item],
         };
       }
-      return {};
+
     case CART_REMOVE_ITEM:
       return {};
     default:
