@@ -14,7 +14,6 @@ export const LoginScreen = ({ location, history }) => {
   const dispatch = useDispatch();
   const { loading, error, userInfo } = useSelector((state) => state.userLogin);
   useEffect(() => {
-    console.log(userInfo);
     if (userInfo) {
       history.push(redirect);
     }
