@@ -19,7 +19,6 @@ export const CartScreen = ({ match, location, history }) => {
   const dispatch = useDispatch();
   const { cartItems } = useSelector((state) => state.cart);
   useEffect(() => {
-    console.log('loaded');
     if (productId) {
       dispatch(addToCart(productId, qty));
     }
