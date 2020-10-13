@@ -12,15 +12,15 @@ export const OrderScreen = ({ match }) => {
   const dispatch = useDispatch();
   const { order, loading, error } = useSelector((state) => state.orderDetails);
 
+  useEffect(() => {
+    dispatch(getOrderDetails(orderId));
+  }, [dispatch, orderId]);
+
   if (!loading) {
     order.itemsPrice = addDecimals(
       order.orderItems.reduce((acc, item) => acc + item.price * item.qty, 0)
     );
   }
-
-  useEffect(() => {
-    dispatch(getOrderDetails(orderId));
-  }, [dispatch, orderId]);
 
   return loading ? (
     <Loader />
