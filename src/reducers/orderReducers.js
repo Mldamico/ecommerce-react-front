@@ -7,6 +7,7 @@ import {
   ORDER_DETAILS_SUCCESS,
   ORDER_LIST_MY_ORDERS_FAIL,
   ORDER_LIST_MY_ORDERS_REQUEST,
+  ORDER_LIST_MY_ORDERS_RESET,
   ORDER_LIST_MY_ORDERS_SUCCESS,
   ORDER_PAY_FAIL,
   ORDER_PAY_REQUEST,
@@ -66,6 +67,8 @@ export const orderListMyOrdersReducer = (state = { orders: [] }, action) => {
       return { ...state, loading: false, orders: action.payload };
     case ORDER_LIST_MY_ORDERS_FAIL:
       return { ...state, loading: false, error: action.payload };
+    case ORDER_LIST_MY_ORDERS_RESET:
+      return { orders: [] };
     default:
       return state;
   }
