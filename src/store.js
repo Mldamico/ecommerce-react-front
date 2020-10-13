@@ -15,6 +15,7 @@ import {
 import {
   orderCreateReducer,
   orderDetailsReducer,
+  orderListMyOrdersReducer,
   orderPayReducer,
 } from './reducers/orderReducers';
 
@@ -29,6 +30,7 @@ const reducer = combineReducers({
   orderCreate: orderCreateReducer,
   orderDetails: orderDetailsReducer,
   orderPay: orderPayReducer,
+  orderListMy: orderListMyOrdersReducer,
 });
 
 const userInfoFromStorage = localStorage.getItem('userInfo')
