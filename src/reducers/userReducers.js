@@ -20,6 +20,10 @@ import {
   USER_DELETE_REQUEST,
   USER_DELETE_SUCCESS,
   USER_DELETE_FAIL,
+  USER_UPDATE_RESET,
+  USER_UPDATE_MY_REQUEST,
+  USER_UPDATE_MY_SUCCESS,
+  USER_UPDATE_MY_FAIL,
 } from '../constants/userContansts';
 
 export const userReducer = (state = {}, action) => {
@@ -69,11 +73,11 @@ export const userDetailsReducer = (state = { user: {} }, action) => {
 
 export const userUpdateProfileReducer = (state = {}, action) => {
   switch (action.type) {
-    case USER_UPDATE_REQUEST:
+    case USER_UPDATE_MY_REQUEST:
       return { loading: true };
-    case USER_UPDATE_SUCCESS:
+    case USER_UPDATE_MY_SUCCESS:
       return { loading: false, success: true, userInfo: action.payload };
-    case USER_UPDATE_FAIL:
+    case USER_UPDATE_MY_FAIL:
       return { loading: false, error: action.payload };
 
     default:
@@ -104,6 +108,21 @@ export const userDeleteReducer = (state = {}, action) => {
       return { loading: false, success: true };
     case USER_DELETE_FAIL:
       return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+
+export const userUpdateReducer = (state = { user: {} }, action) => {
+  switch (action.type) {
+    case USER_UPDATE_REQUEST:
+      return { loading: true };
+    case USER_UPDATE_SUCCESS:
+      return { loading: false, success: true };
+    case USER_UPDATE_FAIL:
+      return { loading: false, error: action.payload };
+    case USER_UPDATE_RESET:
+      return { users: {} };
     default:
       return state;
   }
