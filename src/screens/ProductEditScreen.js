@@ -7,7 +7,7 @@ import { Loader } from '../components/Loader';
 import { FormContainer } from '../components/FormContainer';
 import { listProductDetails, updateProduct } from '../actions/productActions';
 import { PRODUCT_UPDATE_RESET } from '../constants/productConstants';
-
+import axios from 'axios';
 export const ProductEditScreen = ({ match, history }) => {
   const productId = match.params.id;
   const [name, setName] = useState('');
@@ -17,7 +17,7 @@ export const ProductEditScreen = ({ match, history }) => {
   const [brand, setBrand] = useState('');
   const [category, setCategory] = useState('');
   const [description, setDescription] = useState('');
-
+  const [uploading, setUploading] = useState(false);
   const dispatch = useDispatch();
   const { loading, error, product } = useSelector(
     (state) => state.productDetails
@@ -61,6 +61,26 @@ export const ProductEditScreen = ({ match, history }) => {
       })
     );
   };
+
+  const uploadFileHandler = async (e) => {
+    const file = e.target.files[0];
+    const formData = new FormData();
+    formData.append('image', file);
+    setUploading(true);
+    try {
+      const config = {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      };
+      const { data } = await axios.post('/api/upload', formData, config);
+      setImage(data);
+      setUploading(false);
+    } catch (error) {
+      console.log(error);
+      setUploading(false);
+    }
+  };
   return (
     <>
       <Link to='/admin/productlist' className='btn btn-light my-3'>
@@ -102,6 +122,13 @@ export const ProductEditScreen = ({ match, history }) => {
                 value={image}
                 onChange={(e) => setImage(e.target.value)}
               ></Form.Control>
+              <Form.File
+                id='image-file'
+                label='Choose File'
+                custom
+                onChange={uploadFileHandler}
+              ></Form.File>
+              {uploading && <Loader />}
             </Form.Group>
             <Form.Group controlId='brand'>
               <Form.Label>Brand</Form.Label>
