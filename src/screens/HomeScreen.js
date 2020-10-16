@@ -5,14 +5,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import { listProducts } from '../actions/productActions';
 import { Loader } from '../components/Loader';
 import { Message } from '../components/Message';
-export const HomeScreen = () => {
+export const HomeScreen = ({ match }) => {
+  const keyword = match.params.keyword;
   const dispatch = useDispatch();
   const { loading, error, products } = useSelector(
     (state) => state.productList
   );
   useEffect(() => {
-    dispatch(listProducts());
-  }, [dispatch]);
+    dispatch(listProducts(keyword));
+  }, [dispatch, keyword]);
 
   return (
     <>
